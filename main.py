@@ -19,9 +19,11 @@ class Flatmate:
         self.name = name
         self.days_in_house = days_in_house
 
-    def pays(self, bill):
+    def pays(self, bill, flatmate2):
         """Counts amount to pay for flatmate."""
-        pass
+        weight = self.days_in_house / (self.days_in_house + flatmate2.days_in_house)
+        to_pay = weight * bill.amount
+        return to_pay
 
 
 class PdfReport:
@@ -37,3 +39,11 @@ class PdfReport:
     def generate(self, flatmate1, flatmate2, bill):
         """Generates a .pdf report"""
         pass
+
+
+the_bill = Bill(amount=120, period="July 2023")
+john = Flatmate(name="John", days_in_house=20)
+marry = Flatmate(name="Marry", days_in_house=25)
+
+print(f"{john.name} pays: ", john.pays(bill=the_bill, flatmate2=marry))
+print(f"{marry.name} pays: ", marry.pays(bill=the_bill, flatmate2=john))
