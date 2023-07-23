@@ -1,5 +1,6 @@
 import webbrowser
 from fpdf import FPDF
+import os
 
 
 class Bill:
@@ -72,10 +73,12 @@ class PdfReport:
         pdf.cell(w=150, h=25, txt=flatmate2_pay, border=0, ln=1)
 
         pdf.output(self.filename)
-        webbrowser.open(self.filename)
+        webbrowser.open(os.path.abspath(self.filename))
 
 
-the_bill = Bill(amount=120, period="June 2023")
+a = float(input("Hey user, enter a bill amount: "))
+
+the_bill = Bill(amount=a, period="June 2023")
 john = Flatmate(name="John", days_in_house=20)
 marry = Flatmate(name="Marry", days_in_house=25)
 
