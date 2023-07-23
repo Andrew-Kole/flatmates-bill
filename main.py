@@ -1,5 +1,8 @@
 from flat import Bill, Flatmate
-from reports import PdfReport
+from reports import PdfReport, FileSharer
+from dotenv import load_dotenv
+import typing
+import os
 
 amount = float(input("Hey user, enter a bill amount: "))
 period = input("What is the bill period? E.g. December 2020: ")
@@ -19,3 +22,9 @@ print(f"{flatmate2.name} pays: ", flatmate2.pays(bill=the_bill, flatmate2=flatma
 
 pdf_report = PdfReport(filename=f"{the_bill.period}")
 pdf_report.generate(flatmate1=flatmate1, flatmate2=flatmate2, bill=the_bill)
+
+load_dotenv()
+API_KEY: typing.Final = os.getenv("API_KEY")
+
+file_sharer = FileSharer(filename=pdf_report.filename, api_key=API_KEY)
+print(file_sharer.share())
